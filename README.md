@@ -1,2 +1,2 @@
 # Engineer
-## An authentication, role management, and election faciliator discord bot for RPI discord servers
+An open source authentication, role management, and election facilitator discord bot for RPI discord servers.
