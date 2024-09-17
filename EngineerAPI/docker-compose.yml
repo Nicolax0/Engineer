@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   EngineerAPI:
-    image: engineerapi
     build: .
-    enviornment:
-      -DISCORD_KEY=${DISCORD_KEY}
+    image: engineerapi
+    env_file:
+      - .env
     restart: unless-stopped
