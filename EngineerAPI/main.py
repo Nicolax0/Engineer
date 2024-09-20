@@ -1,24 +1,25 @@
 import discord
+from discord.ext import commands
 import os
 
-
 TOKEN = os.getenv("DISCORD_KEY")
+SERVER = os.getenv("SERVER_ID")
+CHANNEL = int(os.getenv("CHANNEL_ID"))
 
-# Create a subclass of Client to encapsulate bot behavior
-class MyClient(discord.Client):
-    async def on_ready(self):
-        print(f'Logged on as {self.user}')
+# Define intents
+intents = discord.Intents.default()
+intents.message_content = True  # Necessary for reading message content
 
-    async def on_message(self, message):
-        # Avoid responding to the bot's own messages
-        if message.author == self.user:
-            return
+# Create an instance of Bot with a command prefix
+bot = commands.Bot(command_prefix='!', intents=intents)
 
-        if message.content.lower() == 'ping':
-            await message.channel.send('pong!')
+@bot.event
+async def on_ready():
+    print(f'Logged on as {bot.user}')
 
-# Create an instance of MyClient
-client = MyClient(intents=discord.Intents.default())
+@bot.command(name='ping')
+async def ping(ctx):
+    if ctx.channel.id == CHANNEL:
+        await ctx.send('pong!')
 
-# Run the bot with the token
-client.run(TOKEN)
+bot.run(TOKEN)
