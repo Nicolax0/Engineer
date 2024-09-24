@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from verification import *
 import os
 
 TOKEN = os.getenv("DISCORD_KEY")
@@ -21,5 +22,13 @@ async def on_ready():
 async def ping(ctx):
     if ctx.channel.id == CHANNEL:
         await ctx.send('pong!')
+
+@bot.command(name='verify')
+async def verify(ctx, RCSID: str = None):
+    if not RCSID:
+        await ctx.send("Please execute the command in the format !verify <RCSID>")
+        return
+    result = send_verification_code(RCSID, ctx.author.id)
+    await ctx.send(f"Email sent to {RCSID + "@rpi.edu"}!\nStatus Code: {str(result)}")
 
 bot.run(TOKEN)
