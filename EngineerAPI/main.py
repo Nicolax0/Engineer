@@ -73,7 +73,7 @@ async def ping(ctx, member: discord.Member = None):
                         await ctx.send(f"Failed to update roles for {member.display_name}: {e}")
         await ctx.send(f"Processed {membersProcessed} members.")
 
-@bot.command(name='createrole')
+@bot.command(name='createRole')
 async def ping(ctx, roleName: str):
     checkRole = discord.utils.get(ctx.guild.roles, name=roleName)
     if checkRole:
@@ -82,7 +82,7 @@ async def ping(ctx, roleName: str):
         newRole = await ctx.guild.create_role(name=roleName, reason=f'Role created by {ctx.author.name}')
         await ctx.send(f"Role {newRole.name} has been created.")
             
-@bot.command(name='deleterole')
+@bot.command(name='deleteRole')
 async def ping(ctx, roleName: str):
     checkRole = discord.utils.get(ctx.guild.roles, name=roleName)
     if not checkRole:
@@ -91,5 +91,5 @@ async def ping(ctx, roleName: str):
         await checkRole.delete(reason=f'Role deleted by {ctx.author.name}')
         await ctx.send(f"Role {roleName} has been deleted.")
 
-        
+
 bot.run(TOKEN)
