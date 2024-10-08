@@ -62,5 +62,24 @@ async def ping(ctx, member: discord.Member = None):
                     except Exception as e:
                         await ctx.send(f"Failed to update roles for {member.display_name}: {e}")
         await ctx.send(f"Processed {membersProcessed} members.")
-                        
+              
+@bot.command(name='createrole')
+async def ping(ctx, roleName: str):
+    checkRole = discord.utils.get(ctx.guild.roles, name=roleName)
+    if checkRole:
+        await ctx.send(f"This role already exists.")
+    else:
+        newRole = await ctx.guild.create_role(name=roleName, reason=f'Role created by {ctx.author.name}')
+        await ctx.send(f"Role {newRole.name} has been created.")
+            
+@bot.command(name='deleterole')
+async def ping(ctx, roleName: str):
+    checkRole = discord.utils.get(ctx.guild.roles, name=roleName)
+    if not checkRole:
+        await ctx.send(f"This role doesn't exist.")
+    else:
+        await checkRole.delete(reason=f'Role deleted by {ctx.author.name}')
+        await ctx.send(f"Role {roleName} has been deleted.")
+
+          
 bot.run(TOKEN)
