@@ -1,6 +1,7 @@
-import discord
 from discord.ext import commands
 from verification import *
+from init import *
+import discord
 import os
 
 TOKEN = os.getenv("DISCORD_KEY")
@@ -17,6 +18,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 @bot.event
 async def on_ready():
     print(f'Logged on as {bot.user}')
+    initialize_database()
 
 @bot.command(name='ping')
 async def ping(ctx):
@@ -30,8 +32,6 @@ async def verify(ctx, RCSID: str = None):
         return
     result = send_verification_code(RCSID, ctx.author.id)
     await ctx.send(f"Email sent to {RCSID + "@rpi.edu"}!\nStatus Code: {str(result)}")
-
-bot.run(TOKEN)
 
 @bot.command(name='graduate')
 async def ping(ctx, member: discord.Member = None):

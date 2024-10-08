@@ -1,11 +1,4 @@
 services:
-  EngineerAPI:
-    build: .
-    image: engineerapi
-    env_file:
-      - .env
-    restart: unless-stopped
-
   database:
     image: "postgres:latest"
     ports:
@@ -16,7 +9,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     env_file:
       - .env
-
+      
   pgadmin:
     image: dpage/pgadmin4
     environment:
@@ -27,3 +20,10 @@ services:
     depends_on:
       - database
     restart: unless-stopped
+
+  EngineerAPI:
+      build: .
+      image: engineerapi
+      env_file:
+        - .env
+      restart: unless-stopped
