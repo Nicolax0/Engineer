@@ -1,15 +1,8 @@
 services:
-  EngineerAPI:
-    build: .
-    image: engineerapi
-    env_file:
-      - .env
-    restart: unless-stopped
-
   database:
     image: "postgres:latest"
     ports:
-      - "5432:5432"
+      - ${POSTGRES_PORT}:5432
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -26,4 +19,14 @@ services:
       - "5050:80" # Port mapping (5050 on host to 80 in pgAdmin container)
     depends_on:
       - database
+    restart: unless-stopped
+
+  EngineerAPI:
+    build: .
+    image: engineerapi
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - pgadmin
     restart: unless-stopped

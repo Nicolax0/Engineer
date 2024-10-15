@@ -1,14 +1,12 @@
-import smtplib
-import os
-import random
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import dns.resolver
+import smtplib
+import random
+import os
 
-    
 def generate_random_code():
     random.randint(100000, 999999)
-
 
 # add functionality to check if RCSID is already in database
 def send_verification_code(RCSID, discord_id):
