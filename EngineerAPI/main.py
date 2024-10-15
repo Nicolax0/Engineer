@@ -1,6 +1,7 @@
-import discord
 from discord.ext import commands
 from verification import *
+from database import *
+import discord
 import os
 
 TOKEN = os.getenv("DISCORD_KEY")
@@ -23,6 +24,7 @@ async def ping(ctx):
     if ctx.channel.id == CHANNEL:
         await ctx.send('pong!')
 
+<<<<<<< HEAD
 @bot.command(name='verify')
 async def verify(ctx, RCSID: str = None):
     if not RCSID:
@@ -49,5 +51,13 @@ async def ping(ctx, roleName: str):
         await checkRole.delete(reason=f'Role deleted by {ctx.author.name}')
         await ctx.send(f"Role {roleName} has been deleted.")
 
+=======
+@bot.command(name='init')
+async def init(ctx):
+    if ctx.channel.id == CHANNEL:
+        connection = connect_to_db()
+        if connection is not None:
+            print("Connection to database successful")
+>>>>>>> Database setup
 
 bot.run(TOKEN)
